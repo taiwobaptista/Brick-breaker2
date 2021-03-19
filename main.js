@@ -15,6 +15,14 @@ class Bat {
     }
 }
 
+
+
+    //ball area
+    const ball = document.createElement("div")
+    ball.classList.add('ball')
+
+
+
 class Brick {
     constructor(x, y, color) {
         this.x = x;
