@@ -1,6 +1,8 @@
-var canvas = document.getElementById("canv");
-var c = canvas.getContext("2d");
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
 
+
+//class Bat
 class Bat {
     constructor(x, y) {
         this.x = x;
@@ -10,16 +12,67 @@ class Bat {
     }
 
     show() {
-        c.fillStyle = 'darkred';
-        c.fillRect(this.x, this.y, this.w, this.h);
+        ctx.fillStyle = 'darkred';
+        ctx.fillRect(this.x, this.y, this.w, this.h);
     }
 }
 
 
 
-    //ball area
-    const ball = document.createElement("div")
-    ball.classList.add('ball')
+  //class scene
+class Scene {
+    constructor(backgroundColor, width, height){
+        this.backgroundColor = backgroundColor;
+        this.width = width;
+        this.height = height;     
+    }
+    show(){
+        const sceneDisplay = document.getElementById("myCanvas");
+        sceneDisplay.style.backgroundColor = this.backgroundColor;
+        sceneDisplay.width = this.width;
+        sceneDisplay.height = this.height;
+    }
+}
+
+
+
+  //class ball
+  class Ball {
+    constructor(radius, color, xDirection, yDirection){
+      this.radius = radius;
+      this.color = color;
+      this.xDirection = xDirection;
+      this.yDirection = yDirection;
+    }
+
+    baller(){
+      const  ballerShow = document.getElementById("myCanvas");
+      var ctx = ballerShow.getContext("2d");
+      ctx.beginPath();
+      ctx.arc((this.xDirection/100)*ballerShow.width,(this.yDirection/100)*ballerShow.height,this.radius,0,2*Math.PI);
+      ctx.stroke();
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    }
+  }
+
+
+
+
+function renderScene() {
+    scene.show();
+    ball.baller();
+    // bat.batt();
+  }
+
+  let scene = new Scene("#000000", 560, 600);
+  let ball = new Ball(15, "blue", 50, 80);
+//   let bat = new Bat(100, 15, "darkred", 40, 540, 10 );
+
+  renderScene();
+
+
+   
 
 
 
@@ -33,8 +86,8 @@ class Brick {
         this.visible = true;
     }
     show() {
-        c.fillStyle = this.color
-        c.fillRect(this.x, this.y, this.w, this.h)
+        ctx.fillStyle = this.color
+        ctx.fillRect(this.x, this.y, this.w, this.h)
     }
 }
 
@@ -72,8 +125,8 @@ function start() {
 }
 
 function update() {
-    c.fillStyle = 'black';
-    c.fillRect(0, 0, 800, 800);
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, 800, 800);
     bat.show();
 
     for (let i = 0; i < bricks.length; i++) {
